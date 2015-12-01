@@ -1,0 +1,1 @@
+/home/atmorojo/git/dwm/config.h
