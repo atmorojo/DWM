@@ -4,12 +4,22 @@
 static const char *fonts[] = { "Stlarch:size=10", "ProFont:size=10", };
 static const char dmenufont[] = "-*-profont-medium-r-*-*-12-*-*-*-*-*-*-*" "," "-*-stlarch-*-*-*-*-10-*-*-*-*-*-*-*";
 
-static const char normbordercolor[] = "#cccccc";
-static const char normbgcolor[]     = "#cccccc";
-static const char normfgcolor[]     = "#000000";
-static const char selbordercolor[]  = "#0066ff";
-static const char selbgcolor[]      = "#0066ff";
-static const char selfgcolor[]      = "#ffffff";
+#define NUMCOLORS         4
+static const char colors[NUMCOLORS][MAXCOLORS][8] = {
+  // border   foreground background
+  { "#000033", "#dddddd", "#000033" },  // normal
+  { "#000088", "#ffffff", "#000088" },  // selected
+  { "#ff0000", "#000000", "#ffff00" },  // urgent/warning  (black on yellow)
+  { "#ff0000", "#ffffff", "#ff0000" },  // error (white on red)
+  // add more here
+};
+
+/* static const char normbordercolor[] = "#cccccc"; */
+/* static const char normbgcolor[]     = "#cccccc"; */
+/* static const char normfgcolor[]     = "#000000"; */
+/* static const char selbordercolor[]  = "#0066ff"; */
+/* static const char selbgcolor[]      = "#0066ff"; */
+/* static const char selfgcolor[]      = "#ffffff"; */
 
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
