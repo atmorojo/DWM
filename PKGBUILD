@@ -20,13 +20,9 @@ md5sums=('f0b6b1093b7207f89c2a90b848c008ec'
          '80c4ef2a3eca0fe2d14e2203e3833200'
          '939f403a71b6e85261d09fc3412269ee')
 
-prepare() {
-  cd $srcdir/$pkgname-$pkgver
-  cp $srcdir/config.h config.h
-}
-
 build() {
   cd $srcdir/$pkgname-$pkgver
+  cp $srcdir/config.h config.h
   make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11 FREETYPEINC=/usr/include/freetype2
 }
 
