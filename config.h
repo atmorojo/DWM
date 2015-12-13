@@ -1,20 +1,24 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const char *fonts[] = { "Stlarch:size=10", "ProFont:size=10", };
-static const char dmenufont[] = "-*-profont-medium-r-*-*-12-*-*-*-*-*-*-*" "," "-*-stlarch-*-*-*-*-10-*-*-*-*-*-*-*";
+/* static const char *fonts[] = { "Stlarch:size=10", "ProFont:size=10", }; */
+/* static const char dmenufont[] = "-*-profont-medium-r-*-*-12-*-*-*-*-*-*-*" "," "-*-stlarch-*-*-*-*-10-*-*-*-*-*-*-*"; */
+static const char *fonts[] = { "Stlarch:size=10", "xft:Source Sans Pro:size=9", };
+static const char dmenufont[] = { "xft:Source Sans Pro:size=9" };
 
-#define NUMCOLORS         4
+#define NUMCOLORS         5
 static const char colors[NUMCOLORS][MAXCOLORS][8] = {
   // border   foreground background
   { "#000033", "#dddddd", "#000033" },  // normal
   { "#000088", "#ffffff", "#000088" },  // selected
   { "#ff0000", "#000000", "#ffff00" },  // urgent/warning  (black on yellow)
   { "#ff0000", "#ffffff", "#ff0000" },  // error (white on red)
+  { "#ff0000", "#ffffff", "#ff0000" },  // error (white on red)
   // add more here
 };
 
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int gappx     = 1;        /* gap pixel between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
@@ -38,7 +42,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact      = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster      = 1;    /* number of clients in master area */
-static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
+static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
