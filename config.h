@@ -61,6 +61,26 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "urxvtc", NULL };
 
+/* function commands */
+static const char *volup[]      = { "amixer", "-q", "sset", "Master", "5%+", "unmute", NULL };
+static const char *voldown[]    = { "amixer", "-q", "sset", "Master", "5%-", "unmute", NULL };
+static const char *volmute[]    = { "amixer", "-q", "sset", "Master", "toggle", NULL };
+static const char *brightup[]   = { "xbacklight", "+10", NULL };
+static const char *brightdown[] = { "xbacklight", "-10", NULL };
+
+/* mpd commands */
+static const char *mpdnext[]    = { "mpc", "next", NULL };
+static const char *mpdprev[]    = { "mpc", "prev", NULL };
+static const char *mpdsel[]     = { "mpsel", NULL };
+static const char *mpdtog[]     = { "mptog", NULL };
+
+/* other commands */
+static const char *lock[]       = { "slock", NULL };
+static const char *shutup[]     = { "shutup", NULL };
+static const char *arandr[]     = { "arandr", NULL };
+static const char *scrotf[]     = { "scrot", "-q", "100", "'/home/atmorojo/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S.jpg'", NULL };
+
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
