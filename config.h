@@ -116,6 +116,19 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+
+    { MODKEY,                       XK_Right,       spawn,          {.v = mpdnext } },
+    { MODKEY,                       XK_Left,        spawn,          {.v = mpdprev } },
+    { 0,                            0x1008ff12,     spawn,          {.v = volmute } },
+    { 0,                            0x1008ff11,     spawn,          {.v = voldown } },
+    { 0,                            0x1008ff13,     spawn,          {.v = volup } },
+    { 0,                            0x1008ff03,     spawn,          {.v = brightdown } },
+    { 0,                            0x1008ff02,     spawn,          {.v = brightup } },
+    { 0,                            0x1008ff59,     spawn,          {.v = arandr } },
+    { MODKEY,                       XK_grave,       spawn,          {.v = mpdtog } },
+    { MODKEY,                       XK_equal,       spawn,          {.v = mpdsel } },
+    { MODKEY|ShiftMask,             XK_l,           spawn,          {.v = lock } },
+    { MODKEY|ShiftMask,             XK_Delete,      spawn,          {.v = shutup } },
 };
 
 /* button definitions */
