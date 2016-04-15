@@ -78,7 +78,8 @@ static const char *mpdtog[]     = { "mptog", NULL };
 static const char *lock[]       = { "slock", NULL };
 static const char *shutup[]     = { "shutup", NULL };
 static const char *arandr[]     = { "arandr", NULL };
-static const char *scrotf[]     = { "scrot", "-q", "100", "'/home/atmorojo/Pictures/Screenshots/%Y-%m-%d-%H-%M-%S.jpg'", NULL };
+static const char *scrotf[]     = { "shot", "-f", NULL };
+static const char *scrots[]     = { "shot", "-f", NULL };
 
 
 static Key keys[] = {
@@ -129,6 +130,9 @@ static Key keys[] = {
     { MODKEY,                       XK_equal,       spawn,          {.v = mpdsel } },
     { MODKEY|ShiftMask,             XK_l,           spawn,          {.v = lock } },
     { MODKEY|ShiftMask,             XK_Delete,      spawn,          {.v = shutup } },
+
+    { 0,                            XK_Print,       spawn,          {.v = scrotf } }, 
+    { MODKEY,                       XK_Print,       spawn,          {.v = scrots } }, 
 };
 
 /* button definitions */
