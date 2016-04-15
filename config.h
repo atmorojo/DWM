@@ -78,8 +78,8 @@ static const char *mpdtog[]     = { "mptog", NULL };
 static const char *lock[]       = { "slock", NULL };
 static const char *shutup[]     = { "shutup", NULL };
 static const char *arandr[]     = { "arandr", NULL };
-static const char *scrotf[]     = { "shot", "-f", NULL };
-static const char *scrots[]     = { "shot", "-s", NULL };
+static const char *scrotf[]     = { "shot", "f", NULL };
+static const char *scrots[]     = { "shot", "s", NULL };
 
 
 static Key keys[] = {
