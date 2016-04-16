@@ -9,10 +9,10 @@ static const char dmenufont[]       = "monospace:size=8";
 #define NUMCOLORS         4
 static const char colors[NUMCOLORS][MAXCOLORS][8] = {
   // border   foreground background
-  { "#000033", "#dddddd", "#000033" },  // normal
-  { "#000088", "#ffffff", "#000088" },  // selected
-  { "#ff0000", "#000000", "#ffff00" },  // urgent/warning  (black on yellow)
-  { "#ff0000", "#ffffff", "#ff0000" },  // error (white on red)
+  { "#000033", "#dddddd", "#111111" },  // normal
+  { "#000088", "#ffffff", "#222222" },  // selected
+  { "#ff0000", "#000000", "#111111" },  // urgent/warning  (black on yellow)
+  { "#ff0000", "#ffffff", "#111111" },  // error (white on red)
   // add more here
 };
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
