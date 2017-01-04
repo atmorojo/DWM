@@ -53,8 +53,8 @@
 #define LENGTH(X)               (sizeof X / sizeof X[0])
 #define MAXCOLORS               9
 #define MOUSEMASK               (BUTTONMASK|PointerMotionMask)
-#define WIDTH(X)                ((X)->w + 2 * (X)->bw)
-#define HEIGHT(X)               ((X)->h + 2 * (X)->bw)
+#define WIDTH(X)                ((X)->w + 2 * (X)->bw + gappx)
+#define HEIGHT(X)               ((X)->h + 2 * (X)->bw + gappx)
 #define TAGMASK                 ((1 << LENGTH(tags)) - 1)
 #define TEXTW(X)                (drw_text(drw, 0, 0, 0, 0, (X), 0) + drw->fonts[0]->h)
 
@@ -710,12 +710,11 @@ dirtomon(int dir)
 void
 drawbar(Monitor *m)
 {
-	int x, xx, w, dx, fh;
+	int x, xx, w, dx;
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
 
 	dx = (drw->fonts[0]->ascent + drw->fonts[0]->descent + 2) / 4;
-    fh = drw->fonts[0]->h;
 
 	for (c = m->clients; c; c = c->next) {
 		occ |= c->tags;
@@ -727,7 +726,7 @@ drawbar(Monitor *m)
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, &scheme[(m->tagset[m->seltags] & 1 << i) ? 1 : (urg & 1 << i ? 2 : 0)]);
 		drw_text(drw, x, 0, w, bh, tags[i], 0);
-		drw_rect(drw, x + fh / 2, bh - 2, w - fh, 2, ( m == selmon && selmon->sel && selmon->sel->tags & 1 << i ) || occ & 1 << i, 
+		drw_rect(drw, x + 3, bh - 2, w - 6, 2, ( m == selmon && selmon->sel && selmon->sel->tags & 1 << i ) || occ & 1 << i, 
                 0, 0);
                 /* occ & 1 << i, 0); */
         x += w;
@@ -1302,12 +1301,40 @@ void
 resizeclient(Client *c, int x, int y, int w, int h)
 {
 	XWindowChanges wc;
+	unsigned int n;
+	unsigned int gapoffset;
+	unsigned int gapincr;
+	Client *nbc;
 
-	c->oldx = c->x; c->x = wc.x = x;
-	c->oldy = c->y; c->y = wc.y = y;
-	c->oldw = c->w; c->w = wc.width = w;
-	c->oldh = c->h; c->h = wc.height = h;
-	wc.border_width = c->bw;
+	/* c->oldx = c->x; c->x = wc.x = x; */
+	/* c->oldy = c->y; c->y = wc.y = y; */
+	/* c->oldw = c->w; c->w = wc.width = w; */
+	/* c->oldh = c->h; c->h = wc.height = h; */
+    wc.border_width = c->bw;
+
+    /* Get number of clients for the selected monitor */
+    for (n = 0, nbc = nexttiled(selmon->clients); nbc; nbc = nexttiled(nbc->next), n++);
+
+    /* Do nothing if layout is floating */
+    if (c->isfloating || selmon->lt[selmon->sellt]->arrange == NULL) {
+        gapincr = gapoffset = 0;
+    } else {
+        /* Remove border and gap if layout is monocle or only one client */
+        if (selmon->lt[selmon->sellt]->arrange == monocle || n == 1) {
+            gapoffset = 0;
+            gapincr = -2 * borderpx;
+            wc.border_width = 0;
+        } else {
+            gapoffset = gappx;
+            gapincr = 2 * gappx;
+        }
+	}
+
+	c->oldx = c->x; c->x = wc.x = x + gapoffset;
+	c->oldy = c->y; c->y = wc.y = y + gapoffset;
+	c->oldw = c->w; c->w = wc.width = w - gapincr;
+	c->oldh = c->h; c->h = wc.height = h - gapincr;
+
 	XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
 	configure(c);
 	XSync(dpy, False);

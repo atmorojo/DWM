@@ -9,15 +9,15 @@ static const char dmenufont[]       = "Lime:size=8";
 #define NUMCOLORS         5
 static const char colors[NUMCOLORS][MAXCOLORS][8] = {
   // border   foreground background
-  { "#ff0000", "#E0E4CC", "#111111" },  // normal
-  { "#111111", "#69D2E7", "#111111" },  // selected
+  { "#E0E4CC", "#E0E4CC", "#111111" },  // normal
+  { "#69D2E7", "#69D2E7", "#111111" },  // selected
   { "#ff0000", "#F38630", "#111111" },  // urgent/warning (black on yellow)
   { "#ff0000", "#FA6900", "#111111" },  // error (white on red)
   { "#8FA388", "#A7DBD8", "#111111" },  // additional
   /* { "#ff0000", "#E0E4CC", "#151B1A" },  // additional color */
   // add more here
 };
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
