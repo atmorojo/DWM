@@ -710,11 +710,12 @@ dirtomon(int dir)
 void
 drawbar(Monitor *m)
 {
-	int x, xx, w, dx;
+	int x, xx, w, dx, fh;
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
 
 	dx = (drw->fonts[0]->ascent + drw->fonts[0]->descent + 2) / 4;
+    fh = drw->fonts[0]->h;
 
 	for (c = m->clients; c; c = c->next) {
 		occ |= c->tags;
@@ -726,8 +727,9 @@ drawbar(Monitor *m)
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, &scheme[(m->tagset[m->seltags] & 1 << i) ? 1 : (urg & 1 << i ? 2 : 0)]);
 		drw_text(drw, x, 0, w, bh, tags[i], 0);
-		drw_rect(drw, x + 1, 1, dx, dx, m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
-                occ & 1 << i, 0);
+		drw_rect(drw, x + fh / 2, bh - 2, w - fh, 2, ( m == selmon && selmon->sel && selmon->sel->tags & 1 << i ) || occ & 1 << i, 
+                0, 0);
+                /* occ & 1 << i, 0); */
         x += w;
 	}
 	w = blw = TEXTW(m->ltsymbol);
@@ -737,6 +739,7 @@ drawbar(Monitor *m)
 	xx = x;
 	if (m == selmon) { /* status is only drawn on selected monitor */
 		w = drw_get_width(drw, NUMCOLORS, stext);
+		/* w = TEXTW(stext); */
 		x = m->ww - w;
 		if (x < xx) {
 			x = xx;
@@ -750,7 +753,7 @@ drawbar(Monitor *m)
 		if (m->sel) {
 			drw_setscheme(drw, &scheme[0]);
 			drw_text(drw, x, 0, w, bh, m->sel->name, 0);
-			drw_rect(drw, x + 1, 1, dx, dx, m->sel->isfixed, m->sel->isfloating, 0);
+			drw_rect(drw, x, 0, dx, dx, m->sel->isfixed, m->sel->isfloating, 0);
 		} else {
 			drw_setscheme(drw, &scheme[0]);
 			drw_rect(drw, x, 0, w, bh, 1, 0, 1);

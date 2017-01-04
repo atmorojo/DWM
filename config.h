@@ -2,17 +2,19 @@
 
 /* appearance */
 static const char *fonts[] = {
-    "xft:Source Code Pro:size=8",
-	"Stlarch:size=10"
+	"Siji:size=8",
+    "Lime:size=8"
 };
-static const char dmenufont[]       = "monospace:size=8";
-#define NUMCOLORS         4
+static const char dmenufont[]       = "Lime:size=8";
+#define NUMCOLORS         5
 static const char colors[NUMCOLORS][MAXCOLORS][8] = {
   // border   foreground background
-  { "#000033", "#dddddd", "#111111" },  // normal
-  { "#000088", "#ffffff", "#222222" },  // selected
-  { "#ff0000", "#000000", "#111111" },  // urgent/warning  (black on yellow)
-  { "#ff0000", "#ffffff", "#111111" },  // error (white on red)
+  { "#ff0000", "#E0E4CC", "#111111" },  // normal
+  { "#111111", "#69D2E7", "#111111" },  // selected
+  { "#ff0000", "#F38630", "#111111" },  // urgent/warning (black on yellow)
+  { "#ff0000", "#FA6900", "#111111" },  // error (white on red)
+  { "#8FA388", "#A7DBD8", "#111111" },  // additional
+  /* { "#ff0000", "#E0E4CC", "#151B1A" },  // additional color */
   // add more here
 };
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
@@ -21,7 +23,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4" };
+static const char *tags[] = { " \uE1B4 ", " \uE1A0 ", " \uE1E1 ", " \uE19D " };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -39,7 +41,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -61,7 +63,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", colors[0][1], "-nf", colors[0][2], "-sb", colors[1][1], "-sf", colors[1][2], NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", colors[0][2], "-nf", colors[0][1], "-sb", colors[1][2], "-sf", colors[1][1], NULL };
 static const char *termcmd[]  = { "urxvtc", NULL };
 
 /* function commands */
