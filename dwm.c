@@ -1280,8 +1280,8 @@ resizeclient(Client *c, int x, int y, int w, int h)
 
 	c->oldx = c->x; c->x = wc.x = x;
 	c->oldy = c->y; c->y = wc.y = y;
-	c->oldw = c->w; c->w = wc.width = w - gapincr;
-	c->oldh = c->h; c->h = wc.height = h - gapincr;
+	c->oldw = c->w; c->w = wc.width = w;
+	c->oldh = c->h; c->h = wc.height = h;
 	wc.border_width = c->bw;
 
 	XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
@@ -1675,7 +1675,7 @@ tagmon(const Arg *arg)
 void
 tile(Monitor *m)
 {
-	unsigned int i, n, h, mw, my, ty;
+	unsigned int i, n, h, r, mw, my, ty;
 	Client *c;
 
 	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
@@ -1684,19 +1684,21 @@ tile(Monitor *m)
 
 	/* Master Width */
 	if (n > m->nmaster)
-		mw = m->nmaster ? m->ww * m->mfact : 0;
+		mw = m->nmaster ? (m->ww + gappx/2) * m->mfact : 0;
 	else
-		mw = m->ww;
-	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+		mw = m->ww - gappx - gappx/2;
+	for (i = 0, my = ty = gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {																											// Resize nmasters
-			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
-			if (my + HEIGHT(c) < m->wh)
+			r = (MIN(n, m->nmaster) - i);
+			h = (m->wh - my - gappx - (gappx/2) * (r - 1)) / r;
+			resize(c, m->wx + gappx, m->wy + my, mw - (2*c->bw) - gappx, h - (2*c->bw), 0);
+			/*if (my + HEIGHT(c) < m->wh)*/
 				my += HEIGHT(c);
 		} else {																																	// Resize Slaves
-			h = (m->wh - ty) / (n - i);
-			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
-			if (ty + HEIGHT(c) < m->wh)
+			r = n - i;
+			h = (m->wh - ty - gappx - (gappx/2) * (r - 1)) / r;
+			resize(c, m->wx + mw + gappx, m->wy + ty, m->ww - mw - (2*c->bw) - 2*gappx, h - (2*c->bw), 0);
+			/*if (ty + HEIGHT(c) < m->wh)*/
 				ty += HEIGHT(c);
 		}
 }
