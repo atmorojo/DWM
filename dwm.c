@@ -1686,7 +1686,7 @@ tile(Monitor *m)
 	if (n > m->nmaster)
 		mw = m->nmaster ? (m->ww + gappx/2) * m->mfact : 0;
 	else
-		mw = m->ww - gappx - gappx/2;
+		mw = m->ww - gappx;
 	for (i = 0, my = ty = gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {																											// Resize nmasters
 			r = (MIN(n, m->nmaster) - i);
