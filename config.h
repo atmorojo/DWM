@@ -1,22 +1,22 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 4;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int gappx			=	16;
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "MesloLGS NF:size=8" };
+static const char *fonts[]          = { "MesloLGS NF:size=9" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
+static const char col_gray2[]       = "#777777";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#AFAF00";
+static const char col_cyan[]        = "#90EE90";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
-	[SchemeSel]  = { col_cyan,	col_gray1, col_gray4  },
+	[SchemeNorm] = { col_gray2, col_gray1, col_gray1 },
+	[SchemeSel]  = { col_cyan,	col_gray1, col_cyan  },
 };
 
 /* tagging */
@@ -34,13 +34,15 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       1 << 3,							0,           -1 },
+	{ "Inkscape", NULL,       NULL,       1 << 3,							0,           -1 },
+	{ "Krita",		NULL,       NULL,       1 << 3,							0,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 1,							0,           -1 },
 };
 
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
