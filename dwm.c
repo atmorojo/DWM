@@ -709,8 +709,23 @@ drawbar(Monitor *m)
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon) { /* status is only drawn on selected monitor */
 		drw_setscheme(drw, scheme[SchemeNorm]);
-		tw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
-		/*drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0);*/
+
+		/* Chain length computed between escape sequence which slow down too
+		 * much TEXTW function */
+		while(1) {
+			if ((unsigned int) *ts > LENGTH(colors)) { ts++; continue; }
+			ctmp = *ts;
+			*ts = '\0';
+			tw += TEXTW(tp) - lrpad;
+			if (ctmp == '\0') { break; }
+			*ts = ctmp;
+			tp = ++ts;
+		} 
+
+		tw = tw + 2; /* 2px right padding */
+		ts = stext;
+		tp = stext;
+
 		while(1) {
 			if ((unsigned int) * ts > LENGTH(colors)) { ts++; continue; }
 
@@ -719,7 +734,7 @@ drawbar(Monitor *m)
 			drw_text(drw, m->ww - tw + tx, 0, tw - tx, bh, 0, tp, 0);
 			tx += TEXTW(tp) - lrpad;
 			if (ctmp == '\0') { break; }
-			drw_setscheme(drw, scheme[(unsigned int)(ctmp-1)]);
+			drw_setscheme(drw, scheme[(unsigned int) (ctmp-1)]);
 			*ts = ctmp;
 			tp = ++ts;
 		}
